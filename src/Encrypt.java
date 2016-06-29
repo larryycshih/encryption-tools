@@ -1,6 +1,11 @@
 public abstract class Encrypt {
 	protected String method_Name;
 	String message;
+	String key;
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 	public Encrypt() {
 		// TODO Auto-generated constructor stub

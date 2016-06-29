@@ -1,0 +1,82 @@
+
+/**
+ * this program will take a encryption method and attempt to crack it using
+ * either brute force or wordlist.
+ * 
+ * the result is compared with a verification wordlist. if it has a number of
+ * these common words then it is stored as a file in folder
+ */
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cracker {
+
+	Encrypt e; // the encryption method to perform
+	File dict; // the dictionary file to use
+	File check; // the wordlist used to check results
+	File outputDir; // the output directory
+
+	public Cracker(Encrypt e, File dict, File check, File outputDir) {
+		super();
+		this.e = e;
+		this.dict = dict;
+		this.check = check;
+		this.outputDir = outputDir;
+	}
+
+	public void BruteForce() {
+
+	}
+
+	public void DictionaryAttack() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(dict));
+		ArrayList<Result> list = new ArrayList<>();
+		int count = 0;
+		
+		for (String line; (line = br.readLine()) != null;) {
+			e.setKey(line);
+			e.decrypt();
+			list.add(new Result(e.getMessage()));
+		}
+
+		// checking phrase
+		br = new BufferedReader(new FileReader(check));
+		for (String line; (line = br.readLine()) != null;) {
+		for (Result s : list) {
+			
+			
+				// for each item in checking list
+				if (s.getMessage().trim().contains(line.toUpperCase())){
+					s.update();
+				}
+			}
+
+		}
+		for (Result s : list) {
+			if (s.getCount() >= 6){
+				System.out.println(count + ","+s.getCount()+","+s.getMessage());
+				count++;
+			}
+		}
+	}
+
+	private class Result{
+	 	String msg;
+	 	int count;
+		public Result(String str){
+	 		this.msg = str;
+	 		this.count = 0;
+	 	}
+		public void update(){count++;}
+		public String getMessage(){return msg;}
+		public int getCount(){return count;}	 
+ }
+
+}
+ 
