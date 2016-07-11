@@ -67,8 +67,8 @@ public class Column extends Encrypt {
 	}
 
 	
-	public int getKey() {
-		return key;
+	public String getKey() {
+		return String.valueOf(key);
 	}
 
 	public void setKey(int key) {

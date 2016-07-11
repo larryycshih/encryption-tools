@@ -65,5 +65,6 @@ public abstract class Encrypt {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public String getKey(){return key;}
 
 }

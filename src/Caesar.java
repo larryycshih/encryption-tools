@@ -60,8 +60,8 @@ public class Caesar extends Encrypt {
 		setMessage(result);
 	}
 
-	public int getKey() {
-		return key;
+	public String getKey() {
+		return String.valueOf(key);
 	}
 
 	public void setKey(int key) {

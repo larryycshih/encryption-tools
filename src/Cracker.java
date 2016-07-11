@@ -21,14 +21,15 @@ public class Cracker {
 	File dict; // the dictionary file to use
 	File check; // the wordlist used to check results
 	File outputDir; // the output directory
-	
+
 	private String _MODE;
-	
 
 	/**
 	 * 
-	 * @param e - is the encryption algorithm to process
-	 * @param dict - 
+	 * @param e
+	 *            - is the encryption algorithm to process
+	 * @param dict
+	 *            -
 	 * @param check
 	 * @param outputDir
 	 */
@@ -39,7 +40,7 @@ public class Cracker {
 		this.check = check;
 		this.outputDir = outputDir;
 	}
-	
+
 	public Cracker(Encrypt e, File dict, File outputDir, String mode) {
 		super();
 		this.e = e;
@@ -56,48 +57,49 @@ public class Cracker {
 		BufferedReader br = new BufferedReader(new FileReader(dict));
 		ArrayList<Result> list = new ArrayList<>();
 		int count = 0;
-		
+
 		for (String line; (line = br.readLine()) != null;) {
 			e.setKey(line);
 			e.decrypt();
-			list.add(new Result(e.getMessage()));
+			list.add(new Result(e.getMessage(),e.getKey()));
 		}
 
 		// checking phrase
 		br = new BufferedReader(new FileReader(check));
 		for (String line; (line = br.readLine()) != null;) {
-		for (Result s : list) {
-			
-			
+			for (Result s : list) {
+
 				// for each item in checking list
-				if (s.getMessage().trim().contains(line.toUpperCase())){
+				if (s.getMessage().trim().contains(line.toUpperCase())) {
 					s.update();
 				}
 			}
 
 		}
 		for (Result s : list) {
-			if (s.getCount() >= 3){
-				System.out.println(count + ","+s.getCount()+","+s.getMessage());
+			
+			if (s.getCI() >= 0.06) {
+				System.out.println(count + "," + s.getCount() + "," + s.getCI() +"," + s.getMessage());
 				count++;
 			}
 		}
 	}
 
-	private class Result{
+	private class Result {
 		String key;
 		String msg;
-	 	int count;
-	 	float CI;
-		public Result(String str){
-	 		this.msg = str;
-	 		this.count = 0;
-	 	}
-		public void update(){count++;}
-		public String getMessage(){return msg;}
-		public int getCount(){return count;}	 
-		public void setKey(String key){this.key = key;}
- }
+		int count;
+		double CI;
+		public Result(String str, String key) {
+			this.msg = str;
+			this.count = 0;
+			CI = new CoIncident_Index(msg).getCI();
+			this.key = key;
+		}
+		public void update() {count++;}
+		public String getMessage() {return key + ":" + msg;}
+		public int getCount() {return count;}
+		public double getCI(){return CI;}
+	}
 
 }
- 
