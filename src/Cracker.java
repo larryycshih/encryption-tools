@@ -21,13 +21,31 @@ public class Cracker {
 	File dict; // the dictionary file to use
 	File check; // the wordlist used to check results
 	File outputDir; // the output directory
+	
+	private String _MODE;
+	
 
+	/**
+	 * 
+	 * @param e - is the encryption algorithm to process
+	 * @param dict - 
+	 * @param check
+	 * @param outputDir
+	 */
 	public Cracker(Encrypt e, File dict, File check, File outputDir) {
 		super();
 		this.e = e;
 		this.dict = dict;
 		this.check = check;
 		this.outputDir = outputDir;
+	}
+	
+	public Cracker(Encrypt e, File dict, File outputDir, String mode) {
+		super();
+		this.e = e;
+		this.dict = dict;
+		this.outputDir = outputDir;
+		this._MODE = mode;
 	}
 
 	public void BruteForce() {
@@ -59,7 +77,7 @@ public class Cracker {
 
 		}
 		for (Result s : list) {
-			if (s.getCount() >= 6){
+			if (s.getCount() >= 3){
 				System.out.println(count + ","+s.getCount()+","+s.getMessage());
 				count++;
 			}
@@ -67,8 +85,10 @@ public class Cracker {
 	}
 
 	private class Result{
-	 	String msg;
+		String key;
+		String msg;
 	 	int count;
+	 	float CI;
 		public Result(String str){
 	 		this.msg = str;
 	 		this.count = 0;
@@ -76,6 +96,7 @@ public class Cracker {
 		public void update(){count++;}
 		public String getMessage(){return msg;}
 		public int getCount(){return count;}	 
+		public void setKey(String key){this.key = key;}
  }
 
 }
