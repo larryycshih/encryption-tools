@@ -32,13 +32,15 @@ public class MAINPROGRAM {
 //		encrypt.decrypt();
 //		System.out.println(encrypt.printMessage());
 	
-		Cracker c = new Cracker(encrypt,new File("wordlist/sowpods.txt"),new File("wordlist/top1000Decapped.txt"),new File("output/"));
-		try {
-			c.DictionaryAttack();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Cracker c = new Cracker(encrypt,new File("wordlist/sowpods.txt"),new File("wordlist/top1000Decapped.txt"),new File("output/"));
+//		try {
+//			c.DictionaryAttack();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		System.out.println( new CoIncident_Index(cipherText).toString() );
 	}
 
 }
