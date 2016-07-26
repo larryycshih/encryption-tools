@@ -5,12 +5,12 @@ public class CoIncident_Index {
 	private double CI;
 	private int c;
 	private double[] period;
-	private int p_size = 20;
+	private int p_size = 50;
 
 	public CoIncident_Index(String msg) {
 		// TODO Auto-generated constructor stub
 		this.msg = msg;
-		this.c = 26;
+		this.c = msg.length();
 		CI = calcCI(msg);
 		period = new double[p_size];
 		findPeriod();
@@ -76,7 +76,7 @@ public class CoIncident_Index {
 	}
 
 	public String toString() {
-		String str = "CI, " + CI + "\nPeriods\n";
+		String str = "CI, " + CI + "\n";
 		for (int i = 0; i < period.length; i++) {
 			str += i + 1 + "," + period[i] + "\n";
 		}

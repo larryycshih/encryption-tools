@@ -61,28 +61,30 @@ public class Cracker {
 		for (String line; (line = br.readLine()) != null;) {
 			e.setKey(line);
 			e.decrypt();
-			list.add(new Result(e.getMessage(),e.getKey()));
+//			list.add(new Result(e.getMessage(),e.getKey()));
+			Result r = new Result(e.getMessage(), e.getKey());
+			if (r.getCI() > 0.2) System.out.println(r.getMessage());
 		}
 
-		// checking phrase
-		br = new BufferedReader(new FileReader(check));
-		for (String line; (line = br.readLine()) != null;) {
-			for (Result s : list) {
-
-				// for each item in checking list
-				if (s.getMessage().trim().contains(line.toUpperCase())) {
-					s.update();
-				}
-			}
-
-		}
-		for (Result s : list) {
-			
-			if (s.getCI() >= 0.06) {
-				System.out.println(count + "," + s.getCount() + "," + s.getCI() +"," + s.getMessage());
-				count++;
-			}
-		}
+//		// checking phrase
+//		br = new BufferedReader(new FileReader(check));
+//		for (String line; (line = br.readLine()) != null;) {
+//			for (Result s : list) {
+//
+//				// for each item in checking list
+//				if (s.getMessage().trim().contains(line.toUpperCase())) {
+//					s.update();
+//				}
+//			}
+//
+//		}
+//		for (Result s : list) {
+//			
+//			if (s.getCI() >= 0.06) {
+//				System.out.println(count + "," + s.getCount() + "," + s.getCI() +"," + s.getMessage());
+//				count++;
+//			}
+//		}
 	}
 
 	private class Result {
