@@ -24,5 +24,8 @@ public class FreqDistribution {
 	public TreeMap<Character, Integer> getFreqDistrib() {
 		return freq;
 	}
-
+	
+	public int getCount(){
+		return msg.length;	
+	}
 }

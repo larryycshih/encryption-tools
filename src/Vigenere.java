@@ -55,6 +55,5 @@ public class Vigenere extends Encrypt {
 			}
 			message = new String(m);
 		}
-	}
-
+	}	
 }

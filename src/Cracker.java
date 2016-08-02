@@ -61,30 +61,37 @@ public class Cracker {
 		for (String line; (line = br.readLine()) != null;) {
 			e.setKey(line);
 			e.decrypt();
-//			list.add(new Result(e.getMessage(),e.getKey()));
-			Result r = new Result(e.getMessage(), e.getKey());
-			if (r.getCI() > 0.2) System.out.println(r.getMessage());
+			list.add(new Result(e.getMessage(),e.getKey()));
+//			Result r = new Result(e.getMessage(), e.getKey());
+//			if (r.getCI() > 0.2) System.out.println(r.getMessage());
 		}
 
-//		// checking phrase
-//		br = new BufferedReader(new FileReader(check));
-//		for (String line; (line = br.readLine()) != null;) {
-//			for (Result s : list) {
-//
-//				// for each item in checking list
-//				if (s.getMessage().trim().contains(line.toUpperCase())) {
-//					s.update();
-//				}
-//			}
-//
-//		}
-//		for (Result s : list) {
-//			
-//			if (s.getCI() >= 0.06) {
-//				System.out.println(count + "," + s.getCount() + "," + s.getCI() +"," + s.getMessage());
-//				count++;
-//			}
-//		}
+		// checking phrase
+		br = new BufferedReader(new FileReader(check));
+		for (String line; (line = br.readLine()) != null;) {
+			for (Result s : list) {
+
+				// for each item in checking list
+				if (s.getMessage().trim().contains(line.toUpperCase())) {
+					s.update();
+				}
+			}
+
+		}
+		for (Result s : list) {
+			
+			if (s.getCI() >= 0.05) {
+				System.out.println(count + "," + s.getCount() + "," + s.getCI() +"," + s.getMessage());
+				count++;
+			}
+		}
+	}
+	
+	private void appendToFile(File f, String input){
+		if (f.exists()){
+			
+			
+		}
 	}
 
 	private class Result {
@@ -102,6 +109,7 @@ public class Cracker {
 		public String getMessage() {return key + ":" + msg;}
 		public int getCount() {return count;}
 		public double getCI(){return CI;}
+		public String toString(){return msg +","+key+","+CI;}
 	}
 
 }
