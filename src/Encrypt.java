@@ -3,10 +3,6 @@ public abstract class Encrypt {
 	String message;
 	String key;
 
-	public void setKey(String key) {
-		this.key = key;
-	}
-
 	public Encrypt() {
 		// TODO Auto-generated constructor stub
 	}
@@ -63,8 +59,12 @@ public abstract class Encrypt {
 	}
 
 	public void setMessage(String message) {
-		this.message = message;
+		this.message = prepareMessage(message);
 	}
 	public String getKey(){return key;}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 }
